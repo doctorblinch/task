@@ -1,0 +1,7 @@
+<h2><a href="{{ url_for('index')}}">Main page</a></h2>
+<ol>
+{% for sent in sentences %}
+<div><li> {{sent}}</div>
+<br><br>
+{% endfor %}
+</ol>

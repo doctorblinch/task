@@ -1,0 +1,8 @@
+<h2><a href="{{ url_for('index')}}">Main page</a></h2>
+{% for sent in sentences %}
+<br>
+<button type="button", onclick="window.location.href='{{ url_for( 'unswer', sent=sent) }}';">
+{{ sent }}
+</button>
+<br>
+{% endfor %}

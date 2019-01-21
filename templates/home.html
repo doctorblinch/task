@@ -1,0 +1,14 @@
+<h1>Input your text</h1>
+
+
+   <form method="post" novalidate>
+       {{ form.hidden_tag() }}
+       <p>
+           {{ form.text.label }}<br>
+           {{ form.text(cols=160, rows=20) }}
+           {% for error in form.text.errors %}
+            <span style="color: blue;"><br>[{{ error }}]</span>
+            {% endfor %}
+       </p>
+       <p>{{ form.submit() }}</p>
+   </form>
