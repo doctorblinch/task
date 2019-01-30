@@ -1,18 +1,15 @@
+import re
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField
 from wtforms.validators import DataRequired
-import re
 import gensim
-#from nltk import tokenize
 
-
+# Form that is used to get input text from the user
 class InForm(FlaskForm):
     text = TextAreaField('Text', validators=[DataRequired()])
     submit = SubmitField('Send')
-'''
-def ssplit_into_sentences(text):
-    return tokenize.sent_tokenize(text)
-'''
+
+# Function for spliting text into sentences using re library.
 def split_into_sentences(text):
     caps = "([A-Z])"
     prefixes = "(Mr|St|Mrs|Ms|Dr)[.]"
@@ -44,18 +41,22 @@ def split_into_sentences(text):
     sentences = [s.strip() for s in sentences]
     return sentences
 
-def splitToWords(sentences):
+# Simple function to make code more compact, used only in
+# "get_sorted_messages" function.
+def split_to_words(sentences):
     words = []
     for sent in sentences:
         words.append(sent.split())
     return words
 
-def getSortedMessages(sentences, sent):
+# Function that is sorting sentences (first parameter) in order
+#  of similarity to the given sentence (second parameter).
+# Based on the gensim library, returns a list of sorted sentences.
+def get_sorted_messages(sentences, sent):
     numOfMainSent = sentences.index(sent)
-    words = splitToWords(sentences)
+    words = split_to_words(sentences)
     similarity = []
     model = gensim.models.Word2Vec(words)
-    #print(model.wv.most_similar('Alice'))
     for i in range(len(sentences)-1):
         k = 0
         wordsOfSent = sentences[i].split()
@@ -68,8 +69,8 @@ def getSortedMessages(sentences, sent):
         similarity.append(k)
     final = []
 
-    for i in range(len(sentences)-1):
+    for s in sentences:
         j = similarity.index(max(similarity))
         final.append(sentences[j])
         similarity[j] = -1
-    return final        
+    return final
