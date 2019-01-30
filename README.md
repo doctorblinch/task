@@ -13,6 +13,7 @@ First you need to download main.py and models.py files. Activate your virtual en
 above. Use comands:
 
 > export FLASK_APP=main.py
+>
 > flask run
 
 After that the website will be activated and you will need to go over the link 'http://127.0.0.1:5000/' where you will
